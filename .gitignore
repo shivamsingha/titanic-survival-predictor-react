@@ -3,3 +3,4 @@ serviceAccountKey.json
 node_modules
 dist
 build
+.vscode

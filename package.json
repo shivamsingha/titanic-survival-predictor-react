@@ -1,8 +1,13 @@
 {
   "name": "root",
+  "license": "UNLICENSED",
   "private": true,
   "dependencies": {
     "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "start": "lerna run start",
+    "build": "lerna run build"
   },
   "workspaces": {
     "packages": [
