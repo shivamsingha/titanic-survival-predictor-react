@@ -7,12 +7,18 @@
   },
   "scripts": {
     "start": "lerna run start",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint:fix",
+    "prepare": "husky install"
   },
   "workspaces": {
     "packages": [
       "web",
       "server"
     ]
+  },
+  "devDependencies": {
+    "husky": "^6.0.0"
   }
 }
