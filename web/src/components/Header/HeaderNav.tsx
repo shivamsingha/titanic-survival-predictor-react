@@ -12,16 +12,16 @@ import {
   SideNavLink,
   SideNavMenu,
   SideNavMenuItem,
-  SkipToContent,
-} from "carbon-components-react";
-import React from "react";
+  SkipToContent
+} from 'carbon-components-react';
+import React from 'react';
 import {
   Search20,
   Notification20,
   AppSwitcher20,
-  Fade16,
-} from "@carbon/icons-react";
-import HeaderMenuItems from "./HeaderMenuItems";
+  Fade16
+} from '@carbon/icons-react';
+import HeaderMenuItems from './HeaderMenuItems';
 
 const action = (x: string) => () => console.log(x);
 
@@ -45,19 +45,19 @@ const HeaderNav: React.FC = ({ children }) => (
           <HeaderGlobalBar>
             <HeaderGlobalAction
               aria-label="Search"
-              onClick={action("search click")}
+              onClick={action('search click')}
             >
               <Search20 />
             </HeaderGlobalAction>
             <HeaderGlobalAction
               aria-label="Notifications"
-              onClick={action("notification click")}
+              onClick={action('notification click')}
             >
               <Notification20 />
             </HeaderGlobalAction>
             <HeaderGlobalAction
               aria-label="App Switcher"
-              onClick={action("app-switcher click")}
+              onClick={action('app-switcher click')}
               tooltipAlignment="end"
             >
               <AppSwitcher20 />

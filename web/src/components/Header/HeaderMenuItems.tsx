@@ -1,7 +1,7 @@
-import { HeaderMenu, HeaderMenuItem } from "carbon-components-react";
-import React from "react";
+import { HeaderMenu, HeaderMenuItem } from 'carbon-components-react';
+import React from 'react';
 
-const HeaderMenuItems = () => (
+const HeaderMenuItems: React.FC = () => (
   <>
     <HeaderMenuItem href="#">Link 1</HeaderMenuItem>
     <HeaderMenuItem href="#">Link 2</HeaderMenuItem>

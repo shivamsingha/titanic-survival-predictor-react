@@ -1,21 +1,20 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Header } from "./components";
-import { Content } from "carbon-components-react";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Header } from './components';
+import { Predict } from './pages';
 
-function App() {
+const App: React.FC = () => {
   return (
     <Header>
-      <Content>
-        <Router>
-          <Switch>
-            <Route path="/">Home</Route>
-          </Switch>
-        </Router>
-      </Content>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Predict />
+          </Route>
+        </Switch>
+      </Router>
     </Header>
   );
-}
+};
 
 export default App;
