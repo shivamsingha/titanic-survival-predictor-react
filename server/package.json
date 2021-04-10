@@ -2,21 +2,21 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "gulp",
+    "start": "gulp start",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "csurf": "^1.11.0",
     "express": "^4.17.1",
-    "express-validator": "^6.10.0",
     "helmet": "^4.4.1",
-    "jose": "^3.11.3",
-    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "python-shell": "^3.0.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
