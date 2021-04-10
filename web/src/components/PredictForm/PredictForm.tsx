@@ -1,97 +1,160 @@
 import {
-  Button,
   Form,
   FormGroup,
   NumberInput,
-  RadioButton,
-  RadioButtonGroup,
-  Search,
   Select,
   SelectItem,
   TextInput,
-  Tile,
-  Toggle
+  Grid,
+  Row,
+  Column,
+  InlineLoading,
+  InlineLoadingStatus,
+  Button
 } from 'carbon-components-react';
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-const PredictForm: React.FC = () => (
-  <Tile>
-    <Form>
-      <NumberInput value={1} id="asdf" />
+type FormData = {
+  pclass: string;
+  sex: string;
+  age: number;
+  sibSp: number;
+  parch: number;
+  fare: number;
+  embarked: string;
+};
 
-      <FormGroup legendText="sdtr">
-        <Toggle id="toggle-1" />
-        <Toggle disabled id="toggle-2" />
-      </FormGroup>
+const PredictForm: React.FC = () => {
+  const [result, setResult] = useState(false);
+  const [status, setStatus] = useState<InlineLoadingStatus>('active');
+  const [statusText, setStatusText] = useState('Wating for input');
 
-      <FormGroup legendText="asdf">
-        <RadioButtonGroup
-          name="radio-button-group"
-          defaultSelected="default-selected"
-        >
-          <RadioButton
-            value="standard"
-            id="radio-1"
-            labelText="Standard Radio Button"
-          />
-          <RadioButton
-            value="default-selected"
-            labelText="Default Selected Radio Button"
-            id="radio-2"
-          />
-          <RadioButton
-            value="blue"
-            labelText="Standard Radio Button"
-            id="radio-3"
-          />
-          <RadioButton
-            value="disabled"
-            labelText="Disabled Radio Button"
-            id="radio-4"
-            disabled
-          />
-        </RadioButtonGroup>
-      </FormGroup>
+  const { register, handleSubmit } = useForm<FormData>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onSubmit = (data: FormData) => {
+    setStatus('active');
+    setStatusText('Predicting...');
+    fetch('http://localhost:4000', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      mode: 'cors'
+    })
+      .then((res) => res.text())
+      .then((res) => {
+        if (res === '1') setResult(true);
+        else if (res === '0') setResult(false);
+        else {
+          setStatusText('Input Data Error');
+          return setStatus('error');
+        }
+        setStatusText('Finished');
+        return setStatus('finished');
+      })
+      .catch((e) => console.log(e));
+  };
 
-      <FormGroup legendText="asdf">
-        <Search id="search-1" labelText="Search" placeholder="Search" />
-      </FormGroup>
+  return (
+    <Grid style={{ background: '#f4f4f4' }}>
+      <Row>
+        <Column>
+          <Form className="predictForm" onSubmit={handleSubmit(onSubmit)}>
+            <Grid>
+              <Row>
+                <h1>{result ? 'Survived' : 'Did not survive'}</h1>
+              </Row>
+              <Row>
+                <div
+                  style={{
+                    marginTop: '1rem',
+                    marginBottom: '2rem',
+                    display: 'flex'
+                  }}
+                >
+                  <Button type="submit" style={{ marginRight: '1rem' }}>
+                    Predict
+                  </Button>
+                  <InlineLoading status={status} description={statusText} />
+                </div>
+              </Row>
+            </Grid>
 
-      <Select id="select-1" defaultValue="placeholder-item">
-        <SelectItem
-          disabled
-          hidden
-          value="placeholder-item"
-          text="Choose an option"
-        />
-        <SelectItem value="option-1" text="Option 1" />
-        <SelectItem value="option-2" text="Option 2" />
-        <SelectItem value="option-3" text="Option 3" />
-      </Select>
+            <Select
+              id="pclass"
+              defaultValue=""
+              labelText="Class"
+              className="bx--fieldset"
+              {...register('pclass', { required: true, valueAsNumber: true })}
+            >
+              <SelectItem disabled hidden value="" text="Choose an option" />
+              <SelectItem value="1" text="Upper" />
+              <SelectItem value="2" text="Middle" />
+              <SelectItem value="3" text="Lower" />
+            </Select>
 
-      <TextInput labelText="asdf" id="asdf" />
+            <Select
+              id="sex"
+              defaultValue=""
+              labelText="Sex"
+              className="bx--fieldset"
+              {...register('sex', { required: true })}
+            >
+              <SelectItem disabled hidden value="" text="Choose an option" />
+              <SelectItem value="male" text="Male" />
+              <SelectItem value="female" text="Female" />
+            </Select>
 
-      <TextInput
-        type="password"
-        required
-        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-        labelText="asdf"
-        id="asdf"
-      />
+            <FormGroup legendText="Age">
+              <NumberInput
+                value={1}
+                id="age"
+                {...register('age', { required: true, valueAsNumber: true })}
+              />
+            </FormGroup>
 
-      <TextInput
-        type="password"
-        required
-        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-        labelText="asdf"
-        id="asdf"
-      />
+            <FormGroup legendText="No. of siblings/spouses">
+              <NumberInput
+                value={0}
+                id="sibSp"
+                {...register('sibSp', { required: true, valueAsNumber: true })}
+              />
+            </FormGroup>
 
-      <Button type="submit" className="some-class">
-        Submit
-      </Button>
-    </Form>
-  </Tile>
-);
+            <FormGroup legendText="No. of parents/children">
+              <NumberInput
+                value={0}
+                id="parch"
+                {...register('parch', { required: true, valueAsNumber: true })}
+              />
+            </FormGroup>
+
+            <TextInput
+              labelText="Fare"
+              id="fare"
+              className="bx--fieldset"
+              {...register('fare', { required: true, valueAsNumber: true })}
+            />
+
+            <Select
+              id="embarked"
+              defaultValue=""
+              labelText="Port of Embarkation"
+              className="bx--fieldset"
+              {...register('embarked', {
+                required: true
+              })}
+            >
+              <SelectItem disabled hidden value="" text="Choose an option" />
+              <SelectItem value="C" text="Cherbourg" />
+              <SelectItem value="Q" text="Queenstown" />
+              <SelectItem value="S" text="Southampton" />
+            </Select>
+          </Form>
+        </Column>
+      </Row>
+    </Grid>
+  );
+};
 
 export default PredictForm;

@@ -15,7 +15,7 @@ interface Style {
 
 const Predict: React.FC<Props> = ({ useResponsiveOffset = true }) => {
   const classNameFirstColumn = cx({
-    'bx--col-lg-13': true,
+    'bx--col-lg-8': true,
     'bx--offset-lg-3': useResponsiveOffset
   });
   const style: Style = {

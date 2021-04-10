@@ -10,9 +10,8 @@ import {
   SideNav,
   SideNavItems,
   SideNavLink,
-  SideNavMenu,
-  SideNavMenuItem,
-  SkipToContent
+  SkipToContent,
+  HeaderMenuItem
 } from 'carbon-components-react';
 import React from 'react';
 import {
@@ -21,7 +20,7 @@ import {
   AppSwitcher20,
   Fade16
 } from '@carbon/icons-react';
-import HeaderMenuItems from './HeaderMenuItems';
+import { NavLink } from 'react-router-dom';
 
 const action = (x: string) => () => console.log(x);
 
@@ -40,7 +39,33 @@ const HeaderNav: React.FC = ({ children }) => (
             Titanic Survival Predictor
           </HeaderName>
           <HeaderNavigation aria-label="IBM [Platform]">
-            <HeaderMenuItems />
+            <HeaderMenuItem>
+              <NavLink
+                to="/"
+                exact
+                activeStyle={{
+                  fontWeight: 'bold'
+                }}
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'inherit'
+                }}
+              >
+                Predict
+              </NavLink>
+            </HeaderMenuItem>
+            <HeaderMenuItem>
+              <NavLink
+                to="/eda"
+                activeStyle={{ fontWeight: 'bold' }}
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'inherit'
+                }}
+              >
+                EDA
+              </NavLink>
+            </HeaderMenuItem>
           </HeaderNavigation>
           <HeaderGlobalBar>
             <HeaderGlobalAction
@@ -66,34 +91,11 @@ const HeaderNav: React.FC = ({ children }) => (
           <SideNav aria-label="Side navigation" expanded={isSideNavExpanded}>
             <SideNavItems>
               <HeaderSideNavItems hasDivider={true}>
-                <HeaderMenuItems />
+                <HeaderMenuItem href="#">Predict</HeaderMenuItem>
+                <HeaderMenuItem href="#">EDA</HeaderMenuItem>
               </HeaderSideNavItems>
-              <SideNavMenu renderIcon={Fade16} title="Category title">
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-              </SideNavMenu>
-              <SideNavMenu renderIcon={Fade16} title="Category title">
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-              </SideNavMenu>
-              <SideNavMenu
-                renderIcon={Fade16}
-                title="Category title"
-                isActive={true}
-              >
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-                <SideNavMenuItem aria-current="page" href="#">
-                  Link
-                </SideNavMenuItem>
-                <SideNavMenuItem href="#">Link</SideNavMenuItem>
-              </SideNavMenu>
               <SideNavLink renderIcon={Fade16} href="#">
-                Link
-              </SideNavLink>
-              <SideNavLink renderIcon={Fade16} href="#">
-                Link
+                Predictions
               </SideNavLink>
             </SideNavItems>
           </SideNav>

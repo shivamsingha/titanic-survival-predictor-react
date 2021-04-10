@@ -1,19 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header } from './components';
-import { Predict } from './pages';
+import { EDA, Predict } from './pages';
+import './App.scss';
 
 const App: React.FC = () => {
   return (
-    <Header>
+    <div className="main-container">
       <Router>
-        <Switch>
-          <Route path="/">
-            <Predict />
-          </Route>
-        </Switch>
+        <Header>
+          <Switch>
+            <Route path="/eda">
+              <EDA />
+            </Route>
+            <Route path="/">
+              <Predict />
+            </Route>
+          </Switch>
+        </Header>
       </Router>
-    </Header>
+    </div>
   );
 };
 
