@@ -22,6 +22,7 @@ function fun(data: string, res: Response) {
     (err, result) => {
       if (err) console.error(err);
 
+      res.set('Cache-Control', 'public, max-age=31557600, immutable');
       res.send(result ? result[0] : null);
     }
   );
