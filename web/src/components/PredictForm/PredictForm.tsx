@@ -14,6 +14,7 @@ import {
 } from 'carbon-components-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { API_URL } from '../../utils';
 
 type FormData = {
   pclass: string;
@@ -35,7 +36,7 @@ const PredictForm: React.FC = () => {
   const onSubmit = (data: FormData) => {
     setStatus('active');
     setStatusText('Predicting...');
-    fetch('http://localhost:4000', {
+    fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
